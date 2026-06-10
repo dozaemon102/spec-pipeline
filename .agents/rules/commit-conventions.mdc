@@ -1,0 +1,43 @@
+---
+description: Conventional Commits に基づくコミットメッセージ規約
+alwaysApply: true
+---
+
+# コミットメッセージ規約
+
+[Conventional Commits](https://www.conventionalcommits.org/) に従う。
+
+## 形式
+
+```
+<type>(<scope>): <subject>
+```
+
+- **subject** は命令形・小文字始まり・句点なし（英語）
+- scope は任意（feature 名やレイヤ）
+
+## type 一覧
+
+| type | 用途 |
+|------|------|
+| feat | 新機能 |
+| fix | バグ修正 |
+| docs | ドキュメント（要件・設計書を含む） |
+| refactor | 挙動を変えないコード変更 |
+| test | テストの追加・修正 |
+| chore | ビルド・設定・初期化など |
+| ci | CI 設定 |
+
+## 例
+
+```
+chore: initialize project inventory-management
+docs: add requirements for stock-update
+feat(backend): implement stock update API
+fix(frontend): correct quantity validation
+```
+
+## 禁止事項
+
+- `--amend` でのコミット改変（差し戻しは追加コミット）
+- 複数の無関係な変更を1コミットに混ぜる

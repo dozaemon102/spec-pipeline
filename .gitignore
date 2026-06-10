@@ -1,0 +1,19 @@
+# projects/ は各プロジェクトが独自に git 管理する（このリポジトリでは追跡しない）
+projects/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# secrets
+.env
+*.env

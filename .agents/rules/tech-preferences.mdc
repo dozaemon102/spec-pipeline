@@ -1,0 +1,23 @@
+---
+description: プロジェクト全体の技術選定の優先方針
+alwaysApply: true
+---
+
+# 技術選定の優先方針
+
+## 言語
+
+- 実装言語は **Python を第一候補**とする
+- 次の場合のみ Python 以外を選ぶ:
+  - Python では技術的に実現困難（例: ブラウザ上で動く UI、ネイティブモバイル）
+  - Python が明確に非推奨（性能・エコシステム上、現実的でない）
+- フロントエンド UI など Python が不適な領域は、その領域の標準技術を使う
+
+判断に迷う場合は、基本設計の `tech-stack.md` に選定理由を明記する。
+
+## Python の依存管理
+
+- Python を使う場合は **uv** で依存管理する
+- `pip` + `requirements.txt` 直接運用や `poetry` を新規採用しない
+- `pyproject.toml` + `uv.lock` を成果物に含める
+- 実行・インストールは `uv` 系コマンドを用いる（`uv add`, `uv sync`, `uv run`）

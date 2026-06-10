@@ -1,0 +1,83 @@
+---
+description: Python coding standards based on PEP 8 / PEP 257 / PEP 484
+globs: **/*.py
+alwaysApply: false
+---
+
+# Python コーディング規約
+
+世界標準の PEP（Python Enhancement Proposals）に従う。
+
+## 準拠する PEP
+
+| PEP | 内容 |
+|-----|------|
+| PEP 8 | コードスタイル（命名・レイアウト） |
+| PEP 257 | docstring 規約 |
+| PEP 484 / 585 | 型ヒント |
+| PEP 20 | The Zen of Python（設計指針） |
+
+## スタイル（PEP 8）
+
+- インデントはスペース4つ。タブを混在させない
+- 1行は最大88文字（Black 準拠。PEP 8 の79は緩和してよい）
+- import は「標準ライブラリ → サードパーティ → ローカル」の順にグループ化し、各グループを空行で区切る
+- ワイルドカード import（`from x import *`）を使わない
+- トップレベル定義の間は2行、メソッド間は1行空ける
+
+## 命名（PEP 8）
+
+| 対象 | 規則 | 例 |
+|------|------|-----|
+| モジュール / 関数 / 変数 | snake_case | `get_user`, `max_count` |
+| クラス | PascalCase | `UserService` |
+| 定数 | UPPER_SNAKE_CASE | `MAX_RETRY` |
+| 非公開 | 先頭アンダースコア | `_internal` |
+
+## 型ヒント（PEP 484 / 585）
+
+- 公開関数の引数・戻り値に型注釈を付ける
+- 組み込みジェネリクスを使う（`list[int]`、`dict[str, int]`）
+- `Optional[X]` より `X | None` を優先する
+
+```python
+def fetch_items(ids: list[int], limit: int | None = None) -> list[Item]:
+    ...
+```
+
+## docstring（PEP 257）
+
+- 公開モジュール・クラス・関数に docstring を書く
+- 1行サマリーは命令形（"Return ..." / "Fetch ..."）
+- 三重ダブルクォート `"""..."""` を使う
+
+## 設計指針（PEP 20）
+
+- 明示は暗黙に勝る（Explicit is better than implicit）
+- 例外を握り潰さない。握る場合は理由をログに残す
+- フラットをネストより優先する
+
+## 推奨ツール
+
+| 用途 | ツール |
+|------|--------|
+| 依存管理 | uv（`pyproject.toml` + `uv.lock`） |
+| フォーマッタ | Black |
+| リンタ | Ruff（または flake8） |
+| 型チェック | mypy |
+| import 整理 | Ruff / isort |
+
+## 依存管理（uv）
+
+- 依存の追加・同期・実行は uv を使う
+
+```bash
+uv add fastapi          # 依存追加
+uv sync                 # ロックに従い環境構築
+uv run pytest           # 仮想環境内で実行
+```
+
+- `pip install` 直運用や `poetry` を新規採用しない
+- `pyproject.toml` と `uv.lock` をリポジトリにコミットする
+
+設定がある場合はプロジェクトの `pyproject.toml` を優先する。
