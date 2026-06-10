@@ -28,6 +28,7 @@ description: >-
 |------|------|
 | 詳細設計書 | `docs/features/<feature>/detailed-design/*.md` |
 | 技術スタック | `docs/architecture/tech-stack.md` |
+| デザインシステム（選択時） | `.agents/resources/design-systems/<name>/DESIGN.md` |
 | 修正指示 | review-code or 人間からのフィードバック |
 
 ---
@@ -58,6 +59,19 @@ description: >-
 
 - 詳細設計 §4 のバリデーションをフォームに実装する
 - クライアント側バリデーションに加え、サーバーエラーを表示する
+
+### デザインシステム（選択時）
+
+pm-agent が案件ごとにデザインシステムを選んでいる場合（`.pipeline-state.md` の「デザインシステム」欄に記載）、以下に従う。
+
+1. `.agents/resources/design-systems/<name>/DESIGN.md` を読む
+2. frontmatter の `colors` / `typography` / `rounded` / `spacing` を **CSS 変数（`:root`）** に落とす
+3. `components`（button / card / input 等）のトークン値を各 UI コンポーネントに適用する
+4. proprietary フォントは本文「Note on Font Substitutes」の無償代替（Inter / Geist / JetBrains Mono 等）を使う
+5. DESIGN.md の「Do's and Don'ts」を逸脱しない（例: ダーク専用システムでライトモードを作らない）
+
+- 選択がない場合は、詳細設計 §4 と技術スタックに従い素朴で読みやすい UI にする（独自に華美な装飾を足さない）
+- デザインシステムは **見た目** を規定する。画面項目・API 対応・バリデーションは詳細設計が優先する
 
 ### tech-stack 未記載時
 

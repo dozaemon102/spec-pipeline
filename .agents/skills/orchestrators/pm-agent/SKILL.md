@@ -197,6 +197,28 @@ main ──● 初回コミット
 
 合意が取れたら `docs/README.md` に要約を書く。
 
+### UI を含む案件: デザインシステムの選択
+
+要望にフロント画面（UI）が含まれる場合、イントークの最後にデザインシステムを **案件ごとに** 選ばせる。
+
+1. `.agents/resources/design-systems/` のライブラリ（getdesign.md 形式の `<name>/DESIGN.md`）から、用途に合う候補を **3〜5 個に絞って** 提示する（同フォルダの `README.md` の用途別表を参照）
+
+   **用途別の推奨（まず提示する第一候補）**
+
+   | 用途 | 推奨デザインシステム |
+   |------|----------------------|
+   | 汎用デフォルト | `vercel`（Geist） |
+   | ダーク / 生産性 | `linear` |
+   | 明るい B2B / 管理画面 | `stripe` |
+   | データ系・ダッシュボード | `sentry`, `posthog` |
+
+2. 人間が 1 つ選ぶ（「指定なし／おまかせ」も可）
+3. 選択結果を `docs/README.md` と `.pipeline-state.md` の「デザインシステム」欄に記録する
+4. frontend-worker が実装段階で `.agents/resources/design-systems/<name>/DESIGN.md` を適用する
+
+- デフォルトは固定しない。指定がなければ用途に合う候補を pm-agent が提案する
+- UI を持たない案件（CLI・API のみ）ではこのステップを省略する
+
 ---
 
 ## Phase 2〜5: パイプライン
@@ -312,6 +334,8 @@ create → review → Critical あり?
 4. [review-code](../../abilities/review-code/SKILL.md) を実行
 
 人間が構成を変更した場合（例:「devops も入れて」）は割当を更新してから実行する。
+
+**frontend-worker 割当時**: イントークで選択したデザインシステム（`.pipeline-state.md` の「デザインシステム」欄）を frontend-worker に渡す。未選択（UI ありなのに未決）の場合は、ここで候補を提示して確定させてから実装する。
 
 ---
 

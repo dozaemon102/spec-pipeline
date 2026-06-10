@@ -55,6 +55,14 @@ projects/<project>/
 
 `rules/` の規約は全 Skill に適用される。技術選定は Python 優先・uv、文書は日本語・コードは英語、コミットは Conventional Commits。詳細は各 `.mdc` を参照。
 
+## リソース
+
+`resources/` はエージェントが生成時に参照する素材を置く（人間向けドキュメントの `docs/` とは区別）。
+
+| リソース | パス | 用途 |
+|----------|------|------|
+| デザインシステム | `resources/design-systems/<name>/DESIGN.md` | UI 生成時のデザイントークン。案件ごとに pm-agent が候補提示→人間が選択→frontend-worker が適用 |
+
 ## 拡張方法
 
 新しい段階・Skill・ルールの追加手順は [docs/authoring-guide.md](../docs/authoring-guide.md) を参照。
