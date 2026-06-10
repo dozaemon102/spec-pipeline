@@ -57,6 +57,7 @@ description: >-
 projects/<project>/
 ├── .git/                           # project 単位で git 管理
 ├── .gitignore
+├── .pipeline-state.md              # 進行状況（セッション再開用）
 ├── docs/
 │   ├── README.md                   # 最初の要望の要約（日本語）
 │   ├── architecture/               # 基本設計段階で横断設計を配置
@@ -78,6 +79,9 @@ projects/<project>/
     ├── backend/
     └── infra/
 ```
+
+- `docs/README.md` は [assets/project-readme-template.md](assets/project-readme-template.md) をベースに作成する
+- `.pipeline-state.md` は [assets/pipeline-state-template.md](assets/pipeline-state-template.md) をベースに作成する
 
 ### 0-4. git 初期化
 
@@ -279,6 +283,29 @@ create → review → Critical あり?
 
 ---
 
+## Phase 6: 最終受入チェック
+
+コード段階が承認された後、feature 全体が要件を満たしたかを確認してから完了報告する。
+
+1. 要件定義書の受入条件（AC）と権限マトリクスを読む
+2. 各 AC が、実装・テストで満たされているか突合する
+3. 各必須 FR が「要件 → 設計 → コード」で追跡できるか確認する（トレーサビリティ）
+4. 結果を `docs/features/<feature>/reviews/acceptance.md` に保存する
+5. 未達がある場合は該当段階に差し戻す。すべて満たせば完了報告する
+
+### トレーサビリティ
+
+| 要件 ID | 詳細設計 | 実装 | テスト | 状態 |
+|---------|----------|------|--------|------|
+| FR-001 | stock-update.md | routes/inventory.py | test_inventory.py | OK |
+
+- いずれかの列が欠けている FR は **未達**として扱う
+- review-code の結果（`reviews/code.md`）と矛盾しないこと
+
+完了報告では、AC 達成状況とトレーサビリティの要約を人間に提示する。
+
+---
+
 ## Skill 委譲マップ
 
 ```
@@ -306,10 +333,12 @@ pm-agent
 
 ## 状態の追跡
 
-進行中は次を意識して会話内で明示する。
+進行状況は `projects/<project>/.pipeline-state.md` に記録する（[テンプレート](assets/pipeline-state-template.md)）。
 
-- 現在の project / feature 名
-- 現在の段階（要件定義 / 基本設計 / 詳細設計 / コード）
-- 人間承認待ちか、自動処理中か
+- 各段階の承認・差し戻し・worker 割当のたびに更新する
+- 状態ファイルの更新は、その段階のコミットに含める
+- 会話内でも、現在の project / feature・段階・待ち状態を明示する
 
-人間が別の話題に移った場合でも、再開時に現在の段階と待ち状態を伝える。
+### セッション再開
+
+会話が途切れて再開したときは、まず `.pipeline-state.md` を読み、現在の段階と次のアクションを人間に伝えてから続行する。会話履歴に依存せず、状態ファイルを真実とする。

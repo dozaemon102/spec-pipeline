@@ -47,11 +47,11 @@ description: >-
 
 ## レビュー手順
 
-1. `detailed-design/*.md` と `requirements.md` を読み、期待される API / DB / 認可を把握する
+1. `detailed-design/*.md` と `requirements.md` を読み、期待される API / DB / 認可・受入条件（AC）を把握する
 2. `src/` の実装コードを読み込む（割当パスのみ）
 3. 割当 worker Skill を参照し、規約違反がないか確認する
 4. [assets/review-checklist.md](assets/review-checklist.md) の全項目を確認する
-5. 詳細設計ファイルごとの対応状況をテンプレートに記載する
+5. 詳細設計ファイルごとの対応状況・トレーサビリティ（FR→設計→コード→テスト）・AC 達成状況をテンプレートに記載する
 6. テンプレートに沿ってレビュー結果を保存する
 7. pm-agent に判定を返す
 

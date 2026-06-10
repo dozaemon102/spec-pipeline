@@ -1,0 +1,48 @@
+---
+description: TypeScript / React コーディング規約（フロントエンド）
+globs: src/frontend/**
+alwaysApply: false
+---
+
+# TypeScript / React コーディング規約
+
+## TypeScript
+
+- `strict: true` を有効にする
+- `any` を使わない（不明な型は `unknown` + 絞り込み）
+- 公開関数・コンポーネント props に型を明示する
+- 型は `interface`（拡張前提）/ `type`（合成・ユニオン）を使い分ける
+
+## 命名
+
+| 対象 | 規則 | 例 |
+|------|------|-----|
+| コンポーネント / 型 | PascalCase | `InventoryList`, `StockItem` |
+| 変数 / 関数 | camelCase | `fetchInventory` |
+| 定数 | UPPER_SNAKE_CASE | `MAX_ITEMS` |
+| フック | `use` プレフィックス | `useInventory` |
+| ファイル（コンポーネント） | PascalCase | `InventoryList.tsx` |
+
+## React
+
+- 関数コンポーネント + Hooks のみ（クラスコンポーネント不可）
+- 副作用は `useEffect`、ロジックはカスタムフックに抽出する
+- props のバケツリレーが深い場合は Context を検討する
+- key に配列 index を使わない（安定 ID を使う）
+
+## API 連携
+
+- API 呼び出しは `api/` に集約する（コンポーネントから直接 fetch しない）
+- レスポンス型を `types/` に定義する
+- 認可エラー（403）はユーザーに分かる形で表示する
+
+## ツール
+
+| 用途 | ツール |
+|------|--------|
+| パッケージ管理 | npm / pnpm（tech-stack に従う） |
+| フォーマッタ | Prettier |
+| リンタ | ESLint |
+| テスト | Vitest / Jest |
+
+設定がある場合はプロジェクトの設定ファイルを優先する。
