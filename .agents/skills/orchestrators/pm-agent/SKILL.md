@@ -85,18 +85,18 @@ projects/<project>/
 
 ### 0-4. git 初期化
 
-フォルダ作成後、**project ルートで** git を初期化する（project 単位で独立管理）。
+フォルダ作成後、**project ルートで** git を初期化する（project 単位で独立管理）。初回コミットは `main` に行う。
 
 ```bash
 cd projects/<project>
-git init
+git init -b main
 # .gitignore を作成（下記）してから初回コミット
 git add -A
 git commit -m "chore: initialize project <project>"
 ```
 
 - リポジトリは `projects/<project>/` 単位。ワークスペース直下では `git init` しない
-- 既存の `.git` がある場合（既存 project への feature 追加）は初期化せず、通常のコミットを行う
+- 既存の `.git` がある場合（既存 project への feature 追加）は初期化しない
 - `.gitignore` の最低限の内容:
 
 ```gitignore
@@ -115,19 +115,51 @@ node_modules/
 
 `uv.lock` と `pyproject.toml` はコミット対象に含める（除外しない）。
 
+### 0-5. ブランチ作成
+
+初回コミット（`main`）の後、`develop` を派生させ、さらに作業用ブランチを切る。
+
+```bash
+# 新規 project 初回のみ: main から develop を作成
+git switch -c develop main
+
+# feature ごとに develop から作業ブランチを作成
+git switch -c feature/<feature> develop
+```
+
+ブランチ戦略:
+
+```
+main ──● 初回コミット
+        └─ develop ──────────────────● (人間がマージ)
+                     └─ feature/<feature> ──●──●──● (pm-agent がコミット)
+```
+
+| ブランチ | 用途 | 作成元 | 作成者 |
+|----------|------|--------|--------|
+| `main` | 安定版。初回コミットのみ自動 | — | pm-agent（init 時） |
+| `develop` | 統合ブランチ | `main` | pm-agent（初回のみ） |
+| `feature/<feature>` | 機能開発 | `develop` | pm-agent |
+| `fix/<topic>` | 不具合修正 | `develop` | pm-agent |
+
+- 既存 project に feature を追加する場合は `develop` から `feature/<feature>` を切る（`develop` が無ければ `main` から作成）
+- パイプラインの各段階のコミットは、この作業ブランチ（`feature/` or `fix/`）上で行う
+- **マージは人間が行う**。pm-agent は `develop` / `main` へマージ・PR 作成・push をしない
+- 完了報告時に、現在のブランチ名と「人間によるマージ待ち」であることを伝える
+
 ### コミット方針
 
-**人間が「次へ」と承認するたびに、その段階の成果物を1コミットする。** 段階ごとに分ける（まとめて1コミットにはしない）。
+**人間が「次へ」と承認するたびに、その段階の成果物を作業ブランチに1コミットする。** 段階ごとに分ける（まとめて1コミットにはしない）。
 
-| 段階 | コミット例 |
-|------|-----------|
-| 初期化 | `chore: initialize project <project>` |
-| 要件定義 | `docs: add requirements for <feature>` |
-| 基本設計 | `docs: add basic design for <feature>` |
-| 詳細設計 | `docs: add detailed design for <feature>` |
-| コード | `feat: implement <feature>` |
+| 段階 | コミット先ブランチ | コミット例 |
+|------|------------------|-----------|
+| 初期化 | `main` | `chore: initialize project <project>` |
+| 要件定義 | `feature/<feature>` | `docs: add requirements for <feature>` |
+| 基本設計 | `feature/<feature>` | `docs: add basic design for <feature>` |
+| 詳細設計 | `feature/<feature>` | `docs: add detailed design for <feature>` |
+| コード | `feature/<feature>` | `feat: implement <feature>` |
 
-人間が「修正」で差し戻した場合は、再承認後に**追加コミット**する（amend は使わない）。
+人間が「修正」で差し戻した場合は、再承認後に作業ブランチへ**追加コミット**する（amend は使わない）。
 
 **feature 名のルール**
 
@@ -302,7 +334,7 @@ create → review → Critical あり?
 - いずれかの列が欠けている FR は **未達**として扱う
 - review-code の結果（`reviews/code.md`）と矛盾しないこと
 
-完了報告では、AC 達成状況とトレーサビリティの要約を人間に提示する。
+完了報告では、AC 達成状況とトレーサビリティの要約に加え、**現在の作業ブランチ名**と「`develop` へのマージは人間が行う」ことを伝える。pm-agent はマージ・PR 作成・push をしない。
 
 ---
 
