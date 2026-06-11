@@ -52,7 +52,8 @@ description: >-
 1. 入力を読み、目的・スコープ・ユーザー像を整理する（`research.md` のスコープ示唆・未調査領域も参照する）
 2. [assets/requirements-template.md](assets/requirements-template.md) をベースに文書を作成する
 3. 未決事項は「未決事項」セクションに列挙する（本文中に TODO を散らさない）
-4. ファイルを保存する
+4. 優先度「将来」の FR は Phase 6 で `future.md` へ移管される前提で書く
+5. ファイルを保存する
 
 ### 差し戻し時
 

@@ -12,6 +12,7 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 |----------------|-----------|
 | 新しいものを作りたい（最初から最後まで） | `orchestrators/pm-agent` |
 | 要件定義前にドメイン調査したい | `abilities/research-pre-requirements` |
+| 事前調査をレビュー | `abilities/review-research` |
 | 要件定義書を作る / 直す | `abilities/create-requirement_definition` |
 | 要件定義書をレビュー | `abilities/review-requirement_definition` |
 | 基本設計書を作る / 直す | `abilities/create-basic_design` |
@@ -19,7 +20,9 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 | 詳細設計書を作る / 直す | `abilities/create-detailed_design` |
 | 詳細設計書をレビュー | `abilities/review-detailed_design` |
 | 設計からコードを実装 | `abilities/implement-from-design` + `workers/*` |
+| 実装の実行検証（テスト・ビルド） | `abilities/verify-run` |
 | コードをレビュー | `abilities/review-code` |
+| セキュリティレビュー | `abilities/review-security` |
 | 計画・設計を壁打ちしたい | `coaches/grill-me` |
 
 ## 役割の分類
@@ -34,19 +37,28 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 ## パイプライン
 
 ```
-要望 → 事前調査 → イントーク → 要件定義 → 基本設計 → 詳細設計 → 実装
-              各段階（要件定義以降）: create → review（自動）→ 人間ゲート（次へ / 修正）
+Phase 0 初期化
+Phase 1 事前調査 → イントーク（人間ゲート）
+Phase 2 要件定義
+Phase 3 基本設計 → デザインシステム選択（UI あり）
+Phase 4 詳細設計
+Phase 5 実装 → verify-run → review-code → review-security（条件付き）
+Phase 6 最終受入（acceptance）
+
+各段階（Phase 2〜5）: create → review（自動）→ 人間ゲート（次へ / 修正）
 ```
 
-- レビューの **Critical** は人間に渡す前に自動差し戻し（最大2回）
+- レビューの **Critical** は人間に渡す前に自動差し戻し（事前調査 1 回、その他 2 回）
 - 人間が「次へ」で承認するたびに git コミット
+- **fast-track** モードで小規模案件を簡略化可能
 
 ## 成果物の置き場
 
 ```
 projects/<project>/
-├── docs/features/<feature>/   # 要件・設計・レビュー
-├── docs/architecture/         # 横断設計
+├── docs/backlog.md              # 横断バックログ
+├── docs/features/<feature>/     # 要件・設計・レビュー・future.md
+├── docs/architecture/           # 横断設計
 └── src/{frontend,backend,infra}
 ```
 
@@ -62,7 +74,7 @@ projects/<project>/
 
 | リソース | パス | 用途 |
 |----------|------|------|
-| デザインシステム | `resources/design-systems/<name>/DESIGN.md` | UI 生成時のデザイントークン。案件ごとに pm-agent が候補提示→人間が選択→frontend-worker が適用 |
+| デザインシステム | `resources/design-systems/<name>/DESIGN.md` | UI 生成時のデザイントークン。基本設計承認後に pm-agent が候補提示→人間が選択 |
 
 ## 拡張方法
 
