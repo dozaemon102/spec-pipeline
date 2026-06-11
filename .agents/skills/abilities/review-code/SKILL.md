@@ -17,6 +17,7 @@ description: >-
 |----------|-------------|
 | 設計との整合性検査 | コードの直接修正 |
 | 認可・エラーハンドリングの確認 | 設計の変更 |
+| 必須テストの存在確認 | AC 最終判定（Phase 6 acceptance が担当） |
 | Critical / Suggestion の分類 | 人間ゲートの判断 |
 
 ---
@@ -51,9 +52,11 @@ description: >-
 2. `src/` の実装コードを読み込む（割当パスのみ）
 3. 割当 worker Skill を参照し、規約違反がないか確認する
 4. [assets/review-checklist.md](assets/review-checklist.md) の全項目を確認する
-5. 詳細設計ファイルごとの対応状況・トレーサビリティ（FR→設計→コード→テスト）・AC 達成状況をテンプレートに記載する
+5. 詳細設計ファイルごとの対応状況・テスト存在の概要をテンプレートに記載する
 6. テンプレートに沿ってレビュー結果を保存する
 7. pm-agent に判定を返す
+
+トレーサビリティ表と AC 達成の**最終判定**は Phase 6 の `reviews/acceptance.md` で行う。本レビューでは設計整合とテストの有無までを検査する。
 
 ### 判定の返し方
 
@@ -98,4 +101,4 @@ description: >-
 ## 次の段階への引き継ぎ
 
 - **不合格** → [implement-from-design](../implement-from-design/SKILL.md) が指摘を反映して再実装
-- **合格 / 条件付き合格** → pm-agent が人間ゲートへ。承認後、パイプライン完了
+- **合格 / 条件付き合格** → pm-agent が Phase 5 人間ゲートへ。承認後 Phase 6 最終受入
