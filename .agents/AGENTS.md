@@ -13,17 +13,23 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 | 新しいものを作りたい（最初から最後まで） | `orchestrators/pm-agent` |
 | 要件定義前にドメイン調査したい | `abilities/research-pre-requirements` |
 | 事前調査をレビュー | `abilities/review-research` |
+| 段階横断の整合をレビュー | `abilities/review-consistency` |
 | 要件定義書を作る / 直す | `abilities/create-requirement_definition` |
 | 要件定義書をレビュー | `abilities/review-requirement_definition` |
 | 基本設計書を作る / 直す | `abilities/create-basic_design` |
 | 基本設計書をレビュー | `abilities/review-basic_design` |
 | 詳細設計書を作る / 直す | `abilities/create-detailed_design` |
 | 詳細設計書をレビュー | `abilities/review-detailed_design` |
+| API 契約（OpenAPI）を作る | `abilities/create-api-contract` |
+| API 契約をレビュー | `abilities/review-api-contract` |
 | 設計からコードを実装 | `abilities/implement-from-design` + `workers/*` |
 | 実装の実行検証（テスト・ビルド） | `abilities/verify-run` |
 | コードをレビュー | `abilities/review-code` |
 | セキュリティレビュー | `abilities/review-security` |
+| 最終受入レポートを作る | `abilities/create-acceptance` |
+| 最終受入をレビュー | `abilities/review-acceptance` |
 | 計画・設計を壁打ちしたい | `coaches/grill-me` |
+| 不具合修正（hotfix） | `orchestrators/pm-agent`（`fix/` + hotfix-guide） |
 
 ## 役割の分類
 
@@ -39,16 +45,18 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 ```
 Phase 0 初期化
 Phase 1 事前調査 → イントーク（人間ゲート）
-Phase 2 要件定義
-Phase 3 基本設計 → デザインシステム選択（UI あり）
-Phase 4 詳細設計
+Phase 2 要件定義 → review-consistency
+Phase 3 基本設計 → デザインシステム選択（UI あり）→ review-consistency
+Phase 4 詳細設計 → review-consistency
+Phase 4.5 API 契約（OpenAPI）
 Phase 5 実装 → verify-run → review-code → review-security（条件付き）
-Phase 6 最終受入（acceptance）
+Phase 6 最終受入（create-acceptance → review-acceptance）
 
-各段階（Phase 2〜5）: create → review（自動）→ 人間ゲート（次へ / 修正）
+各段階: create → review（自動）→ 人間ゲート（次へ / 修正）
+fix/ ブランチ: hotfix モード（短縮フロー）
 ```
 
-- レビューの **Critical** は人間に渡す前に自動差し戻し（事前調査 1 回、その他 2 回）
+- レビューの **Critical** は人間に渡す前に自動差し戻し（事前調査・横断整合・受入は最大1回、その他2回）
 - 人間が「次へ」で承認するたびに git コミット
 - **fast-track** モードで小規模案件を簡略化可能
 
@@ -56,9 +64,9 @@ Phase 6 最終受入（acceptance）
 
 ```
 projects/<project>/
-├── docs/backlog.md              # 横断バックログ
-├── docs/features/<feature>/     # 要件・設計・レビュー・future.md
-├── docs/architecture/           # 横断設計
+├── docs/backlog.md
+├── docs/features/<feature>/   # 要件・設計・契約・レビュー
+├── docs/architecture/
 └── src/{frontend,backend,infra}
 ```
 

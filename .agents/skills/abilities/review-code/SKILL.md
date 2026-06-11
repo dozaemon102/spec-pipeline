@@ -30,9 +30,16 @@ description: >-
 | 詳細設計書（参照） | `projects/<project>/docs/features/<feature>/detailed-design/*.md` |
 | 要件定義書（参照） | `projects/<project>/docs/features/<feature>/requirements.md` |
 | 技術スタック（参照） | `projects/<project>/docs/architecture/tech-stack.md` |
+| verify-run 結果（必須） | `projects/<project>/docs/features/<feature>/reviews/verify-run.md` |
 | 割当 worker（参照） | pm-agent から指定 |
 
 割当されていない worker のパス（例: devops 未割当時の `src/infra/`）はレビュー対象外とする。
+
+### verify-run との連携
+
+- `reviews/verify-run.md` の判定が **不合格** の場合、本レビューは**実行しない**。implement-from-design へ差し戻す
+- 判定が **条件付き合格** の場合、理由を `reviews/code.md` のサマリーに明記してからレビューを実行する
+- 判定が **合格** の場合のみ、通常手順でレビューする
 
 ---
 
@@ -48,13 +55,15 @@ description: >-
 
 ## レビュー手順
 
-1. `detailed-design/*.md` と `requirements.md` を読み、期待される API / DB / 認可・受入条件（AC）を把握する
-2. `src/` の実装コードを読み込む（割当パスのみ）
-3. 割当 worker Skill を参照し、規約違反がないか確認する
-4. [assets/review-checklist.md](assets/review-checklist.md) の全項目を確認する
-5. 詳細設計ファイルごとの対応状況・テスト存在の概要をテンプレートに記載する
-6. テンプレートに沿ってレビュー結果を保存する
-7. pm-agent に判定を返す
+1. `reviews/verify-run.md` を読み、判定が不合格なら即 **不合格** を返す（手順 2 以降は行わない）
+2. `detailed-design/*.md` と `requirements.md` を読み、期待される API / DB / 認可を把握する
+3. `src/` の実装コードを読み込む（割当パスのみ）
+4. 割当 worker Skill を参照し、規約違反がないか確認する
+5. [assets/review-checklist.md](assets/review-checklist.md) の全項目を確認する
+6. 詳細設計ファイルごとの対応状況・テスト存在の概要をテンプレートに記載する
+7. verify-run 判定と整合する旨をサマリーに記載する
+8. テンプレートに沿ってレビュー結果を保存する
+9. pm-agent に判定を返す
 
 トレーサビリティ表と AC 達成の**最終判定**は Phase 6 の `reviews/acceptance.md` で行う。本レビューでは設計整合とテストの有無までを検査する。
 
