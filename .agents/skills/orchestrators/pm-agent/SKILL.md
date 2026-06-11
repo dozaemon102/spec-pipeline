@@ -168,6 +168,15 @@ git commit -m "chore: initialize project <project>"
 - `docs/architecture/` が既に存在する場合、create-basic_design は**既存ファイルとの整合**を必須入力とする
 - 技術スタックの矛盾は Critical として review-basic_design で検出する
 
+### hotfix モード（fix/ ブランチ）
+
+不具合修正のみの場合は [assets/hotfix-guide.md](assets/hotfix-guide.md) に従う。
+
+- ブランチ `fix/<topic>` を `develop` から作成する
+- Phase 0〜3 を省略し、該当 `detailed-design`・契約の**差分のみ**更新してから実装する
+- 詳細設計に該当がない場合は設計追加から始める（hotfix に固執しない）
+- コミットプレフィックスは `fix:` を使用する
+
 ---
 
 ## Phase 1: イントーク
