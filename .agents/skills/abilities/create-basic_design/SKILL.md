@@ -29,8 +29,11 @@ description: >-
 |------|------|
 | 要件定義書 | `projects/<project>/docs/features/<feature>/requirements.md` |
 | プロジェクト概要 | `projects/<project>/docs/README.md` |
+| 既存横断設計（feature 追加時は必須） | `projects/<project>/docs/architecture/*.md` |
 | 前回版（差し戻し時） | `basic-design.md`, `architecture/*.md` |
 | 修正指示 | レビュー指摘 or 人間からのフィードバック |
+
+2 つ目以降の feature では、既存 `architecture/` との**矛盾を解消**する。技術スタックを変える場合は理由と影響範囲を `basic-design.md` に明記する。
 
 要件定義書の未決事項（OPN）を可能な限り解消または設計判断として記録する。
 
@@ -107,6 +110,7 @@ description: >-
 - [ ] 要件定義のロール・権限が認証・認可設計に反映されている
 - [ ] API・DB の詳細に踏み込んでいない
 - [ ] `architecture/` と `basic-design.md` に矛盾がない
+- [ ] 既存 `architecture/` がある場合、追記・更新が整合している（feature 追加時）
 - [ ] 要件定義の未決事項が処理または引き継がれている
 - [ ] 日本語で統一されている
 
