@@ -139,6 +139,7 @@ README と要望から、次を整理する。
 
 ## 次の段階への引き継ぎ
 
+- **レビュー:** [review-research](../review-research/SKILL.md) を直ちに実行する（pm-agent 委譲時）
 - **イントーク:** セクション 9・10 を論点のたたき台に使う
 - **要件定義:** [create-requirement_definition](../create-requirement_definition/SKILL.md) の入力として `research.md` を読む
 - **再調査:** イントークでドメインが大きく変わった場合、pm-agent が本 Skill を再実行する
