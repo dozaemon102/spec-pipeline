@@ -95,10 +95,14 @@ projects/<project>/
 │       │   ├── requirements.md
 │       │   ├── basic-design.md
 │       │   ├── detailed-design/
+│       │   ├── consistency/        # 段階横断整合レビュー
+│       │   ├── contract.md
 │       │   ├── verify-run.md
 │       │   ├── security.md         # 条件付き
 │       │   ├── code.md
 │       │   └── acceptance.md
+│       ├── contract/
+│       │   └── openapi.yaml
 └── src/
     ├── frontend/
     ├── backend/
@@ -224,6 +228,8 @@ Phase 0 直後、イントークの前に [research-pre-requirements](../../abil
 [create-requirement_definition](../../abilities/create-requirement_definition/SKILL.md) → [review-requirement_definition](../../abilities/review-requirement_definition/SKILL.md)
 
 - 自動差し戻し最大 2 回（従来どおり）
+- 続けて [review-consistency](../../abilities/review-consistency/SKILL.md)（対象 Phase: 2）を実行する
+- 横断レビューの自動差し戻しは最大 1 回
 - 人間承認後 `docs: add requirements for <feature>` をコミット → Phase 3
 
 ---
@@ -233,6 +239,7 @@ Phase 0 直後、イントークの前に [research-pre-requirements](../../abil
 [create-basic_design](../../abilities/create-basic_design/SKILL.md) → [review-basic_design](../../abilities/review-basic_design/SKILL.md)
 
 - fast-track 時は簡略版で可
+- 続けて [review-consistency](../../abilities/review-consistency/SKILL.md)（対象 Phase: 3）を実行する
 - 人間承認後 `docs: add basic design for <feature>` をコミット
 
 ### 3-1. デザインシステムの選択（UI ありの場合）
@@ -254,7 +261,8 @@ Phase 0 直後、イントークの前に [research-pre-requirements](../../abil
 
 - fast-track 時は 1 ファイルに集約
 - 複数ファイル時はファイルごとに review（従来どおり）
-- 人間承認後コミット → Phase 5
+- 続けて [review-consistency](../../abilities/review-consistency/SKILL.md)（対象 Phase: 4）を実行する
+- 人間承認後コミット → Phase 4.5
 
 ---
 
@@ -404,6 +412,7 @@ pm-agent
 ├── abilities/
 │   ├── research-pre-requirements
 │   ├── review-research
+│   ├── review-consistency
 │   ├── create-requirement_definition
 │   ├── review-requirement_definition
 │   ├── create-basic_design
