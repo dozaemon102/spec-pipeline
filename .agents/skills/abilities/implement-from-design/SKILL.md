@@ -53,7 +53,8 @@ description: >-
 2. pm-agent から割当られた worker Skill を読み込む
 3. 実装順序を決める（下記）
 4. ユースケース（詳細設計ファイル）ごとに、割当 worker が担当レイヤを実装する
-5. [assets/implementation-checklist.md](assets/implementation-checklist.md) で自己確認する
+5. **必須 FR と AC に対応するテスト**を実装する（`testing-standards.mdc` に従う）
+6. [assets/implementation-checklist.md](assets/implementation-checklist.md) で自己確認する
 
 ### 実装順序（推奨）
 
@@ -116,6 +117,6 @@ description: >-
 
 ## 次の段階への引き継ぎ
 
-[review-code](../review-code/SKILL.md) でレビューされる。
+[verify-run](../verify-run/SKILL.md) → [review-code](../review-code/SKILL.md)（条件付きで [review-security](../review-security/SKILL.md)）の順でレビューされる。
 
-人間承認後、pm-agent が完了報告する。
+人間承認後、pm-agent が Phase 6 最終受入へ進む。
