@@ -28,6 +28,7 @@ description: >-
 | 入力 | パス |
 |------|------|
 | 詳細設計書 | `projects/<project>/docs/features/<feature>/detailed-design/*.md` |
+| API 契約（あれば） | `projects/<project>/docs/features/<feature>/contract/openapi.yaml` |
 | 要件定義書（参照） | `projects/<project>/docs/features/<feature>/requirements.md` |
 | 技術スタック | `projects/<project>/docs/architecture/tech-stack.md` |
 | 割当 worker | pm-agent から指定（例: backend-worker, frontend-worker） |
@@ -49,7 +50,7 @@ description: >-
 
 ## 実装手順
 
-1. `detailed-design/*.md` をすべて読み、API / DB / 画面 / 認可を把握する
+1. `detailed-design/*.md` と `contract/openapi.yaml`（あれば）を読み、API / DB / 画面 / 認可を把握する
 2. pm-agent から割当られた worker Skill を読み込む
 3. 実装順序を決める（下記）
 4. ユースケース（詳細設計ファイル）ごとに、割当 worker が担当レイヤを実装する

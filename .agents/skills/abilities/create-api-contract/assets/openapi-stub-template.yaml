@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: <feature-name> API
+  version: 0.1.0
+  description: Generated from detailed design. Do not implement beyond this contract without design update.
+
+paths:
+  # Example — replace with detailed-design endpoints
+  /api/v1/example:
+    get:
+      summary: FR-001
+      x-usecase: <usecase>.md
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
