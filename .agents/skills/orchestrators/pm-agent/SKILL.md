@@ -63,6 +63,7 @@ projects/<project>/
 │   ├── architecture/               # 基本設計段階で横断設計を配置
 │   ├── domain/                     # 必要に応じて
 │   └── features/<feature>/
+│       ├── research.md             # Phase 1 事前調査（要件定義前）
 │       ├── requirements.md
 │       ├── basic-design.md
 │       ├── detailed-design/        # ユースケース単位で1つ以上
@@ -154,7 +155,7 @@ main ──● 初回コミット
 | 段階 | コミット先ブランチ | コミット例 |
 |------|------------------|-----------|
 | 初期化 | `main` | `chore: initialize project <project>` |
-| 要件定義 | `feature/<feature>` | `docs: add requirements for <feature>` |
+| 要件定義 | `feature/<feature>` | `docs: add research and requirements for <feature>`（`research.md` と `requirements.md` を同コミット） |
 | 基本設計 | `feature/<feature>` | `docs: add basic design for <feature>` |
 | 詳細設計 | `feature/<feature>` | `docs: add detailed design for <feature>` |
 | コード | `feature/<feature>` | `feat: implement <feature>` |
@@ -179,11 +180,23 @@ main ──● 初回コミット
 
 ## Phase 1: イントーク（要件定義の前）
 
+### 1-0. 事前調査（research-pre-requirements）
+
+プロジェクト初期化（Phase 0）の直後、**イントークの前に必ず** [research-pre-requirements](../../abilities/research-pre-requirements/SKILL.md) を読み込んで委譲する。
+
+- ネット上の類似事例・ドメイン知識を調査し、`docs/features/<feature>/research.md` を作成する
+- 人間が「調査不要」「スキップ」と明示した場合のみ省略する
+- 調査完了報告（要点・優先ヒアリング論点）を人間に提示してから、下記イントークに進む
+- イントーク中にドメインが大きく変わった場合は、合意後に再調査する
+
+### 1-1. イントーク
+
 案件の複雑さを判断し、次のどちらかを行う。
 
 ### シンプル → ヒアリング（3〜5問）
 
 - 対象ユーザー、既存システム、優先機能、制約など
+- `research.md` の「ヒアリングで確認すべき論点」を優先して聞く
 - 回答を `docs/README.md` に追記
 
 ### 複雑・曖昧 → grill-me
@@ -369,6 +382,7 @@ pm-agent
 ├── coaches/
 │   └── grill-me                          # 複雑案件のイントーク
 ├── abilities/
+│   ├── research-pre-requirements         # 要件定義前のネット調査
 │   ├── create-requirement_definition
 │   ├── review-requirement_definition
 │   ├── create-basic_design

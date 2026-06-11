@@ -17,6 +17,12 @@
 |---------|------|------|
 | <feature-name> | ... | 開発中 |
 
+## 事前調査
+
+<!-- research-pre-requirements の成果物。未実施なら「未実施」 -->
+
+- レポート: `docs/features/<feature>/research.md`
+
 ## イントークで確認した事項
 
 <!-- ヒアリング / grill-me で合意した前提・制約・技術方針 -->

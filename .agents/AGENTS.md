@@ -11,6 +11,7 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 | ユーザーの意図 | 使う Skill |
 |----------------|-----------|
 | 新しいものを作りたい（最初から最後まで） | `orchestrators/pm-agent` |
+| 要件定義前にドメイン調査したい | `abilities/research-pre-requirements` |
 | 要件定義書を作る / 直す | `abilities/create-requirement_definition` |
 | 要件定義書をレビュー | `abilities/review-requirement_definition` |
 | 基本設計書を作る / 直す | `abilities/create-basic_design` |
@@ -33,8 +34,8 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 ## パイプライン
 
 ```
-要望 → 要件定義 → 基本設計 → 詳細設計 → 実装
-        各段階: create → review（自動）→ 人間ゲート（次へ / 修正）
+要望 → 事前調査 → イントーク → 要件定義 → 基本設計 → 詳細設計 → 実装
+              各段階（要件定義以降）: create → review（自動）→ 人間ゲート（次へ / 修正）
 ```
 
 - レビューの **Critical** は人間に渡す前に自動差し戻し（最大2回）

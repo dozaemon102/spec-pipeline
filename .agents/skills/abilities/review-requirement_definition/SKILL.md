@@ -26,6 +26,7 @@ description: >-
 |------|------|
 | レビュー対象 | `projects/<project>/docs/features/<feature>/requirements.md` |
 | コンテキスト | `projects/<project>/docs/README.md` |
+| 事前調査（あれば） | `projects/<project>/docs/features/<feature>/research.md` |
 
 ---
 
