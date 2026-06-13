@@ -30,6 +30,10 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 | 最終受入をレビュー | `abilities/review-acceptance` |
 | 計画・設計を壁打ちしたい | `coaches/grill-me` |
 | 不具合修正（hotfix） | `orchestrators/pm-agent`（`fix/` + hotfix-guide） |
+| TDD・縦スライス実装・Git 作法 | `practices/test-driven-development` 等（[agent-skills](skills/practices/agent-skills/SKILL.md) 参照） |
+| ブラウザ実機検証 | `practices/browser-testing-with-devtools` |
+| UI / a11y 深掘り | `practices/frontend-ui-engineering` |
+| 性能・デバッグ・高リスク監査 | `practices/performance-optimization` 等 |
 
 ## 役割の分類
 
@@ -39,6 +43,7 @@ spec-pipeline のエージェント基盤。要望から実装までを、作成
 | Ability | `skills/abilities/` | 段階ごとの作成・レビュー（成果物を生む / 検査する） |
 | Worker | `skills/workers/` | レイヤ別の実装（frontend / backend / infra） |
 | Coach | `skills/coaches/` | 壁打ち（パイプライン外） |
+| Practice | `skills/practices/` | [agent-skills](skills/practices/agent-skills/SKILL.md) 由来の実装・検証ワークフロー（パイプライン補完） |
 
 ## パイプライン
 
@@ -83,6 +88,12 @@ projects/<project>/
 | リソース | パス | 用途 |
 |----------|------|------|
 | デザインシステム | `resources/design-systems/<name>/DESIGN.md` | UI 生成時のデザイントークン。基本設計承認後に pm-agent が候補提示→人間が選択 |
+
+## 外部スキル（agent-skills）
+
+[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) を `.agents/vendor/agent-skills/` に submodule 取り込み済み。要件〜設計の段階は自前 Skill を優先し、**実装・検証・デバッグ・Git** は `skills/practices/` 経由で vendor ワークフローを補完する。一覧と使い分けは [practices/agent-skills](skills/practices/agent-skills/SKILL.md)。
+
+更新: `git submodule update --remote .agents/vendor/agent-skills`
 
 ## 拡張方法
 

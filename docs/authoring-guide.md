@@ -11,8 +11,13 @@
 | Ability | `.agents/skills/abilities/` | 段階ごとの作成・レビュー |
 | Worker | `.agents/skills/workers/` | レイヤ別の実装 |
 | Coach | `.agents/skills/coaches/` | 壁打ち等（パイプライン外） |
+| Practice | `.agents/skills/practices/` | vendor agent-skills へのラッパー（パイプライン補完） |
 
 Skill 名は `SKILL.md` を含むフォルダ名。カテゴリフォルダは整理用で、名前には影響しない。
+
+### 外部スキル（vendor）
+
+[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) は `.agents/vendor/agent-skills/` に submodule 管理。新規 Practice ラッパーを足す場合は [practices/agent-skills/SKILL.md](../.agents/skills/practices/agent-skills/SKILL.md) の使い分け表を更新する。vendor 本体は直接編集しない。
 
 ## SKILL.md の規約
 

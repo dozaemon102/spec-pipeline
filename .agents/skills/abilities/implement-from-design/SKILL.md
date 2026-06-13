@@ -55,6 +55,8 @@ description: >-
 3. 実装順序を決める（下記）
 4. ユースケース（詳細設計ファイル）ごとに、割当 worker が担当レイヤを実装する
 5. **必須 FR と AC に対応するテスト**を実装する（`testing-standards.mdc` に従う）
+   - 手順の詳細: [test-driven-development](../../practices/test-driven-development/SKILL.md)
+   - 複数ファイル変更: [incremental-implementation](../../practices/incremental-implementation/SKILL.md)
 6. [assets/implementation-checklist.md](assets/implementation-checklist.md) で自己確認する
 
 ### 実装順序（推奨）

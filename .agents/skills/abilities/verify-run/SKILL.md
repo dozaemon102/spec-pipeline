@@ -50,6 +50,7 @@ description: >-
 | frontend テスト | `npm test` / `pnpm test`（package.json に従う） | frontend 割当時 |
 | frontend ビルド | `npm run build` | frontend 割当時 |
 | 起動確認 | README または infra の手順で起動 | 可能な場合 |
+| ブラウザ実機検証 | DevTools MCP（[browser-testing-with-devtools](../../practices/browser-testing-with-devtools/SKILL.md)） | frontend 割当かつ UI の AC がある場合 |
 
 3. 失敗したコマンドはログの要点を記録する
 4. テンプレートに結果を保存し、pm-agent に判定を返す
